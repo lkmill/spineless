@@ -1,0 +1,22 @@
+{
+  "name": "spineless",
+  "version": "0.0.1",
+  "description": "LESS stuff.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lohfu/spineless.git"
+  },
+  "keywords": [
+    "LESS"
+  ],
+  "author": "Linus Miller <lohfu@lohfu.io> (https://lohfu.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lohfu/spineless/issues"
+  },
+  "homepage": "https://github.com/lohfu/spineless#readme"
+}

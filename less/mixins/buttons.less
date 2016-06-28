@@ -1,0 +1,118 @@
+.button-size(
+  @height: 0,
+  @font-size: 0,
+  @padding: 0,
+  @full-width: false,
+  @border: 0
+) {
+  @error-message: "You have to supply at least two of the following: @font-size, @height, @padding.";
+
+  @line-height: false;
+
+  @padding: rem(@padding);
+  @height: rem(@height);
+  @font-size: rem(@font-size);
+  @padding: rem(@padding);
+  @border: rem(@border);
+
+  @if type-of(@padding) != "list" {
+    @padding: @padding @padding;
+  }
+
+  @if @height != 0 {
+    @if @font-size != 0 {
+      @padding: 0 nth(@padding, 2);
+    } @else if nth(@padding,1) != 0 {
+      @font-size: @height - nth(@padding, 1);
+    } @else {
+      @error @error-message;
+    }
+    @padding: 0 nth(@padding, 2);
+  } @else if @font-size != 0 {
+    @if nth(@padding, 1) != 0 {
+      @height: @font-size + nth(@padding, 1) * 2;
+      @padding: 0 nth(@padding, 2)
+    } @else {
+      @error @error-message;
+    }
+  } @else {
+    @error @error-message;
+  }
+
+  @line-height: @height - 2 * @border;
+
+  @if @full-width == true {
+    @padding: rem(nth(@padding, 1) 0);
+    width: 100%;
+  }
+
+  line-height: rem(@line-height);
+  height: rem(@height);
+  padding: rem(@padding);
+  font-size: rem(@font-size);
+}
+
+.button-style-thoughtbot() {
+  color: @button-font-color;
+  background-color: #ee432e;
+  background: linear-gradient(180deg, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+  border: rem(1px) solid #951100; border-radius: rem(5px); box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+  &:hover {
+    background: linear-gradient(180deg, #f37873 0%, #db504d 50%, #cb0500 50%, #a20601 100%);
+  }
+  &:active {
+    background-color: #d43c28;
+    background: linear-gradient(to bottom, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+    box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4); 
+  }
+}
+// modified thoughtbot
+.button-style-glossy(@color: @base-color) {
+  background: @color;
+  background: linear-gradient(180deg, lighten(@color, 10%) 0%, @color 50%, darken(@color, 5%) 50%, darken(@color, 15%) 100%);
+  border: 1px solid darken(@color, 15%);
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(lighten(@color, 20%), 0.4), 0 1px 3px #333;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+
+  &:hover {
+    background: linear-gradient(to bottom, lighten(@color, 25%) 0%, lighten(@color, 5%) 50%, darken(@color, 5%) 50%, darken(@color, 20%) 100%);
+  }
+
+  &:active {
+    background: linear-gradient(to bottom, darken(@color, 4%) 0%, darken(@color,2%) 50%, darken(@color, 10%) 50%, darken(@color, 18%) 100%);
+    //background: linear-gradient(top, #d43c28 0%, #ad3224 50%, #9c1500 50%, #700d00 100%);
+    box-shadow: inset 0 0 0 1px rgba(lighten(@color, 20%), 0.4);
+  }
+}
+
+.button-style-clean-grey(@color: #ccc) {
+  background-color: @color;
+  background: linear-gradient(180deg, lighten(@color, 13.3333%), @color);
+  border: 1px solid darken(@color, 6.6667%);
+  border-bottom-color: darken(@color, 13.3333%);
+  border-radius: 3px;
+  color: darken(@color, 60%);
+  text-shadow: 0 1px 0 #eee;
+  &:hover:not(:disabled):not(.disabled) {
+    background-color: lighten(@color, 6.6667%);
+    background: linear-gradient(to bottom, lighten(@color, 6.6667%), darken(@color, 6.6667%));
+    border-color: darken(@color, 13.3333%);
+    border-bottom-color: #888;
+    text-shadow: 0 1px 0 #ddd; 
+  }
+  &:active:not(:disabled):not(.disabled) {
+    border: 1px solid #999;
+    border-bottom: 1px solid #777;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  }
+  &:disabled, &.disabled {
+    background-color: lighten(@color, 6.6667%);
+    background: linear-gradient(180deg, lighten(@color, 20%), lighten(@color, 6.6667%));
+    border-color: lighten(@color, 6.6667%);
+    border-bottom-color: @color;
+    color: darken(@color, 13.3333%);
+  }
+}

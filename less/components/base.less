@@ -1,0 +1,64 @@
+@default-float: left;
+@opposite-direction: right;
+@text-direction: left;
+
+@base-color: #0066c6;
+@color-1: #0066c6;
+@color-2: #0066c6;
+@color-3: #0066c6;
+@color-message: #333;
+@color-error: #c89999;
+@color-success: #628b1c;
+
+// This needs to be a px value since rem and em-calc use it. It is translated
+// to a percante unit for html and body font-sizing like so: strip-unit(@base-font-size) / 16 * 100%;
+@base-line-height: 1.6;
+@base-line-height-computed: @base-line-height * 1rem;
+
+@body-font-color: #222;
+@body-font-family: "Times New Roman", sans-serif;
+@body-font-weight: normal;
+@body-font-style: normal;
+@body-bg: #fff;
+
+@font-smoothing: subpixel-antialiased;
+
+//
+// Base Styling
+//
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html, body { font-size: @base-font-size; }
+
+// Default body styles
+body {
+  background: @body-bg;
+  color: @body-font-color;
+  padding: 0;
+  margin: 0;
+  font-family: @body-font-family;
+  font-weight: @body-font-weight;
+  font-style: @body-font-style;
+  line-height: @base-line-height; // Set to @base-line-height to take on browser default of 150%
+  position: relative;
+}
+
+img,
+object,
+embed { max-width: 100%; height: auto; }
+
+object,
+embed { height: 100%; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+// Get rid of gap under images by making them display: inline-block; by default
+img {
+  display:inline-block;
+  vertical-align: middle;
+}

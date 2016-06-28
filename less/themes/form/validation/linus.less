@@ -1,0 +1,179 @@
+@form-valid-color: green;
+@form-invalid-color: red;
+@form-valid-icon: 'form-valid.svg';
+@form-invalid-icon: 'form-invalid.svg';
+
+@import "mixins/graphics";
+
+form {
+	@color: @base-color;
+	@icon-width: 20px;
+
+	div.field-container {
+		&.hide-errors {
+			div.invalid {
+				label.icon:not(:hover) {
+					~ label.error {
+						display: none;
+					}
+				}
+			}
+		}
+
+		[data-spytext] {
+			&:before {
+				content: '';
+				display: block;
+				float: right;
+				width: @icon-width;
+				height: @icon-width;
+			}
+		}
+		textarea {
+			padding-right: @icon-width + extract(@input-padding, 2);
+			&:before {
+				content: '';
+				display: block;
+				float: right;
+				width: @icon-width;
+				height: @icon-width;
+			}
+		}
+		&.valid {
+			&.focus {
+				> label.placeholder {
+					color: @form-valid-color;
+				}
+			}
+
+			> label.icon {
+				&:before {
+					transform: rotateX(-180deg);
+				}
+				&:after {
+					transform: rotateX(0deg);
+				}
+				opacity: 1;
+			}
+
+			> span {
+				display: block;
+				border: 1px solid @form-valid-color;
+				padding: 3px 31px 3px 3px;
+			}
+
+			input,textarea,select,[data-spytext] {
+				border-color: @form-valid-color;
+			}
+		}
+
+		&.invalid {
+			&.focus {
+				> label.placeholder {
+					color: @form-invalid-color;
+				}
+			}
+
+			> span {
+				display: block;
+				border: 1px solid @form-invalid-color;
+				padding: 3px 31px 3px 3px;
+			}
+
+			> label.icon {
+				opacity: 1;
+				&:before {
+					transform: rotateX(0deg);
+				}
+				&:after {
+					transform: rotateX(-180deg);
+				}
+				&:hover ~ label.error {
+					display: block;
+				}
+			}
+
+			input,textarea,select,[data-spytext] {
+				border-color: @form-invalid-color;
+				&:focus {
+					~ label.error {
+						display: block;
+					}
+				}
+			}
+		}
+
+		&.checkable {
+			> label.icon {
+				height: 20px;
+			}
+		}
+
+		// also set in linus/linus
+		> label:not(.checkable) {
+			cursor: text;
+		}
+
+		> label.error {
+			display: none;
+			color: white;
+			background: @form-invalid-color;
+			padding: 10px 15px;
+			position: absolute;
+			right: 5px;
+			z-index: 9999;
+			bottom: calc(~"100% + 7px");
+			line-height: 1;
+
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				right: 5px;
+				top: 100%;
+				height: 0;
+				width: 0;
+				.right-angle-triangle(5px, @form-invalid-color, top);
+			}
+		}
+
+		> label.icon {
+			@icon-transition-time: 0.5s;
+			transition: transform @icon-transition-time, opacity @icon-transition-time;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			right: extract(@input-padding, 2);
+			width: @icon-width;
+			height: @input-height;
+			perspective: 1000px;
+			&:before, &:after {
+				content: '';
+				transition: transform @icon-transition-time;
+				transform-style: preserve-3d;
+				backface-visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-size: 18px auto;
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+			&:before {
+        background-image: img-url(@form-invalid-icon);
+				z-index: 2;
+				transform: rotateX(-180deg);
+			}
+			&:after {
+        background-image: img-url(@form-valid-icon);
+				transform: rotateX(-180deg);
+			}
+		}
+
+		> select ~ label.icon {
+			right: extract(@input-padding, 2) * 2;
+		}
+	}
+}

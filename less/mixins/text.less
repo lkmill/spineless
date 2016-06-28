@@ -1,0 +1,104 @@
+@mixin text-fancy_shadow() {
+  @include text-shadow(0px 0.09em 0.1em rgba(0,0,0,0.4), 0px 0.23em 0.4em rgba(0,0,0,0.1), 0px 0.6em 0.8em rgba(0,0,0,0.1));
+}
+
+@mixin text-3d($color:$c-main-1,$darken:true) {
+  color: $color;
+  $color-1: lighten($color,20%);
+  $color-2: lighten($color,40%);
+  @if $darken {
+    $color-1: darken($color,20%);
+    $color-2: darken($color,40%);
+  }
+  text-shadow: 1px 1px 0 $color-1, 2px 2px 0 $color-1, 3px 3px 0 $color-2, 4px 4px 0 $color-2, 5px 5px 0 $color-2, 6px 6px 0 $color-2; 
+  //@include text-shadow(0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15));
+}
+
+@mixin text-awesome() {
+  #wrapper {
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Yanone Kaffeesatz", "Lucida Grande", Lucida, Verdana, sans-serif;
+    margin: 0 auto;
+    width: 600px;
+    padding: 7em 0;
+    background: url(http://s.cdpn.io/79/tilt-shift.jpg) no-repeat center center;
+    border-radius: 4px;
+    box-shadow: inset 0 -1px 0  hsla(0,0%,0%,.2), 0 21px 8px -12px rgba(0,0,0,.2);
+    perspective: 350;
+  }
+
+  #wrapper:focus {
+    outline: none;
+  }
+
+
+  #wrapper p {
+    //font-size: emCalc(20px);
+    font-size: emCalc(90px);
+    margin: 0;
+    line-height: 1;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-shadow: rgba(0,0,0,0.1) 0 20px 80px;
+    @include transition(transform .1s ease-in); /* only WebKit because of performance */
+  }
+
+
+  /* Hover ------------------------------------------------------ */
+
+  #wrapper:hover p {
+    color: hsla(0,0%,0%,0);
+    @include transform(rotate(6.5deg) rotateX(28deg) skewX(-4deg));
+    @include transition(transform .1s ease-out); /* only WebKit because of performance */
+  }
+
+  #wrapper:hover p:nth-child(1) {
+    font-size: emCalc(90px) - 1em;
+    @include text-shadow(#fff 0 0 10px, #fff 0 4px 3px, #ddd 0 9px 3px,  #ccc 0 12px 1px, rgba(0,0,0,0.2) 0 14px 5px, rgba(0,0,0,0.1) 0 20px 10px, rgba(0,0,100,0.2) 0 15px 80px);
+    text-indent: 0.3em;
+  } 
+  #wrapper:hover p:nth-child(2) {
+    @include text-shadow(#fff 0 0 1px, #eee 0 4px 3px, #ddd 0 9px 3px,  #ccc 0 12px 1px, rgba(0,0,0,0.2) 0 14px 3px, rgba(0,0,0,0.1) 0 20px 10px, rgba(0,0,100,0.2) 0 15px 80px);
+  } 
+  #wrapper:hover p:nth-child(3) {
+    font-size: emCalc(90px) + 1em;
+    @include text-shadow(#fff 0 0 2px, #fff 0 4px 5px, #ddd 0 9px 5px,  #ccc 0 12px 10px, rgba(0,0,0,0.2) 0 14px 5px, rgba(0,0,0,0.1) 0 20px 10px, rgba(0,0,100,0.2) 0 15px 80px);
+  }
+
+
+  /* Middle ------------------------------------------------------ */
+
+  #wrapper p:nth-child(2):hover {
+    @include text-shadow(#fff 0 -5px 1px, #eee 0 -1px 3px, #ddd 0 4px 3px,  #ccc 0 7px 1px, rgba(0,0,0,0.2) 0 15px 5px, rgba(0,0,0,0.1) 0 20px 10px, rgba(0,0,0,0.2) 0 15px 80px);
+  }
+
+  #wrapper p:nth-child(2):active {
+    @include text-shadow(rgba(0,0,0,0.2) 0 14px 5px, rgba(0,0,0,0.1) 0 20px 10px, rgba(0,0,0,0.2) 0 15px 80px);
+  }
+
+  #wrapper p::selection {
+    background-color: red;
+  }
+}
+
+@mixin text-shaded($bg-color:$c-main-1,$color: darken($c-main-1,20%)){
+  background-color: #3a50d9;
+  color: #e0eff2;
+  @include text-shadow(-4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27);
+}
+
+@mixin text-letterpress() {
+  // Note : Font color must be darker than background color, and shadow color must be lighter than font color.
+
+  font-size:60px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #504f4f;
+  text-shadow: 0px 2px 1px #bbbaba;
+  &:hover {
+    color: #666;
+    @include text-shadow(0px 2px 1px #333);
+  }
+}

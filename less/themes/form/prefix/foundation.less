@@ -1,0 +1,48 @@
+@if load-module('forms/prefix/foundation', 'themes') {
+	// We use these to style the prefix and postfix input elements
+	$input-prefix-bg: scale-color(#fff, $lightness: -5%) !global !default;
+	$input-prefix-border-color: scale-color(#fff, $lightness: -20%) !global !default;
+	$input-prefix-border-size: 1px !global !default;
+	$input-prefix-border-type: solid !global !default;
+	$input-prefix-overflow: hidden !global !default;
+	$input-prefix-font-color: #333 !global !default;
+	$input-prefix-font-color-alt: #fff !global !default;
+
+	.prefix, .postfix {
+		display: block;
+		position: relative;
+		z-index: 2;
+		text-align: center;
+		width: 100%;
+		padding: $input-padding 0;
+		border-style: $input-prefix-border-type;
+		border-width: $input-prefix-border-size;
+		overflow: $input-prefix-overflow;
+		font-size: $form-label-font-size;
+		height: $input-height;
+		line-height: 1;
+	}
+
+	.prefix {
+		border-#{$opposite-direction}: none;
+		@include side-radius('right', 0);
+	}
+
+	.postfix {
+		border-#{$default-float}: none;
+		@include side-radius('left', 0);
+	}
+
+	span.prefix,label.prefix, span.postfix,label.postfix {
+		$bg-lightness: lightness($input-prefix-bg);
+		background: $input-prefix-bg;
+
+		// Control the font color based on background brightness
+		@if $bg-lightness > 70% or $bg == yellow { color: $input-prefix-font-color; }
+		@else { color: $input-prefix-font-color-alt; }
+
+		border-color: $input-prefix-border-color;
+	}
+
+	$tmp: register-module();
+}

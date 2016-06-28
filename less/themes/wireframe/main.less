@@ -1,0 +1,106 @@
+//@import "variables-spysass";
+//@import "variables";
+
+@import "components/reset";
+//@import "components/flex-grid";
+@import "components/type";
+@import "components/grid";
+
+@import "themes/form/foundation";
+@import "themes/form/fieldset/foundation";
+//@import "themes/spytext/niknus";
+
+//@import "layout";
+//@import "forms";
+//@import "styles";
+//@import "content";
+
+header {
+	nav {
+		ul {
+			@include wipe-list;
+		}
+
+		a {
+			color: blue;
+			display: block;
+			padding: 5px 20px;
+			line-height: 1;
+			text-decoration: none;
+		}
+
+		.current > a {
+			background: yellow
+		}
+
+		> ul {
+			margin-top: 0;
+			> li {
+				float: left;
+				position: relative;
+				border: 1px solid blue;
+				&:not(:last-child) {
+					border-right: none;
+				}
+
+				> ul {
+					display: none;
+					position: absolute;
+					top: calc(100% + 1px);
+					left: -1px;
+					background: white;
+					border: 1px solid blue;
+					border-top: none;
+					z-index: 9999;
+				}
+
+				&:hover {
+					> ul {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+
+.company {
+    h1 {
+        margin: 0;
+    }
+    padding-bottom: 20px;
+}
+
+body > main {
+	@include clear;
+	overflow-x: hidden;//needed to fix chrome animation bug (logo seems to move);
+	width: 100%;
+	> .page {
+		width: 100%;
+		position: relative;
+		left: 0;
+		&.animate {
+			transition: left 0.5s;
+			float: left;
+			margin-right: -100%;
+		}
+
+		&.enter {
+			left: 100%;
+			&.back {
+				left: -100%;
+			}
+		}
+
+		&.leave.active {
+			left: -100%;
+			&.back {
+				left: 100%;
+			}
+		}
+
+		&.enter.active, &.leave {
+			left: 0;
+		}
+	}
+}

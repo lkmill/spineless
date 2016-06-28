@@ -1,0 +1,36 @@
+@if not variable-exists('input-height') or not variable-exists('input-padding') or not variable-exists('input-font-size') {
+  @error "@input-{height,padding,font-size} not set. You probably need to load a base form theme.";
+}
+
+
+// We use these to style the labels in different ways
+@form-label-pointer: pointer;
+@form-label-font-size: @base-font-size;//14px for base font size 16
+@form-label-font-weight: normal;
+@form-label-line-height: 1.5;
+@form-label-font-color: scale-color(#000, @lightness: 30%);
+@form-label-small-transform: capitalize;
+@form-label-bottom-margin: 0;
+
+label {
+  font-size: @form-label-font-size;
+  color: @form-label-font-color;
+  cursor: @form-label-pointer;
+  display: block;
+  font-weight: @form-label-font-weight;
+  line-height: @form-label-line-height;
+  margin-bottom: @form-label-bottom-margin;
+  &.right {
+    float: none !important;
+    text-align: right;
+  }
+  &.inline {
+    margin: 0 0 @form-spacing 0;
+    padding: @form-spacing / 2 + @input-border-width 0;
+  }
+  /* Styles for required inputs */
+  small {
+    text-transform: @form-label-small-transform;
+    color: scale-color(@form-label-font-color, @lightness: 15%);
+  }
+}

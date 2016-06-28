@@ -1,0 +1,46 @@
+.triangle(@height; @base: 2 * @height; @direction: left; @color: @base-color) {
+  width: 0;
+  height: 0;
+  & when (@direction = top) {
+    border-left: @base / 2 solid transparent;
+    border-bottom: @height solid @color;
+    border-right: @base / 2 solid transparent;
+  }
+  & when (@direction = bottom) {
+    border-left: @base / 2 solid transparent;
+    border-top: @height solid @color;
+    border-right: @base / 2 solid transparent;
+  }
+  & when (@direction = left) {
+    border-top: @base / 2 solid transparent;
+    border-right: @height solid @color;
+    border-bottom: @base / 2 solid transparent;
+  }
+  & when (@direction = right) {
+    border-top: @base / 2 solid transparent;
+    border-left: @height solid @color;
+    border-bottom: @base / 2 solid transparent;
+  }
+}
+
+.right-angle-triangle(@size, @color, @direction) {
+  width: 0;
+  height: 0;
+  border: inset @size;
+  & when (@direction = top) {
+    border-color: @color transparent transparent transparent;
+    border-top-style: solid;
+  }
+  & when (@direction = bottom) {
+    border-color: transparent transparent @color transparent;
+    border-bottom-style: solid;
+  }
+  & when (@direction = right) {
+    border-color: transparent transparent transparent @color;
+    border-left-style: solid;
+  }
+  & when (@direction = left) {
+    border-color: transparent @color transparent transparent;
+    border-right-style: solid;
+  }
+}

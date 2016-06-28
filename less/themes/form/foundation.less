@@ -1,0 +1,163 @@
+@import 'mixins/border';
+@import 'mixins/buttons';
+@import 'mixins/effects';
+@import 'mixins/forms';
+
+// Based on Foundation 5.3.0
+//
+// @variables
+//
+// We use this to set the base for lots of form spacing and positioning styles
+@form-spacing: 16px;
+
+// We use these to style the labels in different ways
+@input-font-family: inherit;
+@input-font-color: rgba(0,0,0,0.75);
+@input-font-size: @base-font-size;//14px for base font size 16
+@input-placeholder-color: #aaa;
+@input-bg-color: #fff;
+@input-padding: 8px 8px;
+@input-focus-bg-color: darken(#fff, 2%);
+@input-border-color: darken(#fff, 20%);
+@input-focus-border-color: darken(#fff, 40%);
+@input-border-style: solid;
+@input-border-width: 1px;
+@input-border-radius: 0;
+@input-disabled-bg: #ddd;
+@input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+@input-include-glowing-effect: true;
+
+@textarea-padding-top: extract(@input-padding, 1) - 4px;
+
+// We use this to style the glowing effect of inputs when focused
+@glowing-effect-fade-time: 0.45s;
+@glowing-effect-color: @input-focus-border-color;
+
+// Select variables
+@select-bg-color: #fafafa;
+@select-hover-bg-color: darken(@select-bg-color, -3%);
+
+@input-height: @input-font-size + (extract(@input-padding, 1) + @input-border-width) * 2;
+
+/* We use this to get basic styling on all basic form elements */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+select,
+textarea,
+[data-spytext],
+.spytext-field {
+  .input-size(
+    @height: @input-height,
+    @padding: @input-padding,
+    @border: @input-border-width,
+    @font-size: @input-font-size,
+    @spacing: 0
+  );
+  border: @input-border-width @input-border-style @input-border-color;
+  appearance: none !important;
+  background-color: @input-bg-color;
+  font-family: @input-font-family;
+  box-shadow: @input-box-shadow;
+  color: @input-font-color;
+  border-radius: 0;
+
+  @if @input-include-glowing-effect {
+    .block-glowing-effect(focus, @glowing-effect-fade-time, @glowing-effect-color);
+  }
+
+  // Basic focus styles
+  &:focus {
+    background: @input-focus-bg-color;
+    border-color: @input-focus-border-color;
+    outline: none;
+  }
+
+  // Disabled background input background color
+  &[disabled], fieldset[disabled] & { background-color: @input-disabled-bg; }
+  @if @input-include-glowing-effect == false {
+    transition: all 0.15s linear;
+  }
+}
+
+input, textarea {
+  // from http://stackoverflow.com/a/14739092/4273291
+  &::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  &:-ms-input-placeholder {
+    color: @input-placeholder-color;
+  }
+  &::-webkit-input-placeholder {
+    color: @input-placeholder-color;
+  }
+  &:-moz-placeholder {
+    opacity: 1;
+    color: @input-placeholder-color;
+  }
+  &::-moz-placeholder {
+    opacity: 1;
+    color: @input-placeholder-color;
+  }
+}
+
+textarea, [spytext-field], .spytext-field {
+  padding: @textarea-padding-top extract(@input-padding, 2);
+  height: auto;
+}
+
+select {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 9.9999996 5.0000003"><path d="M0 0h10L5 5 0 0z" fill="#aaa" fill-rule="evenodd"/></svg>') !important;
+  background-color: @select-bg-color !important;
+  //background-position: if(@text-direction == 'rtl', 5px, calc(~"100% - 5px")) center !important;
+  background-repeat: no-repeat !important;
+
+  transition: background 0.5s;
+
+  &:hover, &:focus {
+    background-color: @select-hover-bg-color;
+    border-color: @input-focus-border-color;
+  }
+
+  &:focus {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 9.9999996 5.0000003"><path d="M10 5H0l5-5 5 5z" fill="#888" fill-rule="evenodd"/></svg>') !important;
+  }
+  &::-ms-expand {
+      display:none;
+  }
+}
+
+select, textarea {
+  line-height: 1.6;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  display: inline-block;
+  margin-@{default-float}: @form-spacing * .5;
+  margin-@{opposite-direction}: @form-spacing;
+  margin-bottom: 0;
+  vertical-align: baseline;
+}
+
+/* Normalize file input width */
+input[type="file"] {
+  width:100%;
+}

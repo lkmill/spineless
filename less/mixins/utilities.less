@@ -1,0 +1,75 @@
+.clear() {
+  &:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+  }
+}
+
+.stretch(@top: 0, @right: 0, @bottom: 0, @left: 0) {
+  position: absolute;
+  top: @top;
+  right: @right;
+  bottom: @bottom;
+  left: @left;
+}
+
+
+.ratio(@ratio, @initial-width: 100%, @pseudo: before) {
+  &:@{pseudo} {
+    content: '';
+    display: block;
+    width: @initial-width;
+    height: 0;
+    padding-top: (1 / @ratio) * @initial-width;
+    //@content;
+  }
+}
+
+.full-inline(@vertical-align: middle, @pseudo: before) {
+  &:@{pseudo} {
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    content: '';
+    vertical-align: @vertical-align;
+  }
+}
+
+.wipe() {
+  /*Reset's every elements apperance*/
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  border-spacing: 0;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-transform: inherit;
+  text-indent: 0;
+}
+
+.wipe-button() {
+  .wipe();
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.wipe-list() {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}

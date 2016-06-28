@@ -1,0 +1,135 @@
+@import "../components/base";
+@import "../mixins/utilities";
+
+@heading-font-family: @body-font-family;
+@heading-font-weight: bold;
+@heading-font-style: normal;
+@heading-font-color: @body-font-color;
+@heading-text-rendering: optimizeLegibility;
+@heading-top-margin: @base-line-height-computed;
+@heading-bottom-margin: @base-line-height-computed / 2;
+@heading-line-height: 1.2;
+
+@h1-font-size: 2.5rem;//40px when base-font-size is 16px
+@h2-font-size: 2.0rem;//32px when base-font-size is 16px
+@h3-font-size: 1.7rem;//27.2px when base-font-size is 16px
+@h4-font-size: 1.4rem;//22.4px when base-font-size is 16px
+@h5-font-size: 1.2rem;//19.2px when base-font-size is 16px
+@h6-font-size: 1.0rem;
+
+@paragraph-font-family: @body-font-family;
+@paragraph-font-weight: @body-font-weight;
+@paragraph-font-size: 1.0rem;
+@paragraph-line-height: @base-line-height;
+@paragraph-margin: 0 0 (@base-line-height-computed / 2);
+@paragraph-text-rendering: optimizeLegibility;
+
+/* Default header styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: @heading-font-family;
+  font-weight: @heading-font-weight;
+  font-style: @heading-font-style;
+  color: @heading-font-color;
+  text-rendering: @heading-text-rendering;
+  margin-top: @heading-top-margin;
+  margin-bottom: @heading-bottom-margin;
+  line-height: @heading-line-height;
+}
+
+h1 { font-size: @h1-font-size; }
+h2 { font-size: @h2-font-size; }
+h3 { font-size: @h3-font-size; }
+h4 { font-size: @h4-font-size; }
+h5 { font-size: @h5-font-size; }
+h6 { font-size: @h6-font-size; }
+
+section, article, nav, aside {
+  h1 { font-size: @h2-font-size; }
+  h2 { font-size: @h3-font-size; }
+  h3 { font-size: @h4-font-size; }
+  h4 { font-size: @h5-font-size; }
+  h5 { font-size: @h5-font-size; }
+  section, article, nav, aside {
+    h1 { font-size: @h3-font-size; }
+    h2 { font-size: @h4-font-size; }
+    h3 { font-size: @h5-font-size; }
+    h4 { font-size: @h6-font-size; }
+    section, article, nav, aside {
+      h1 { font-size: @h4-font-size; }
+      h2 { font-size: @h5-font-size; }
+      h3 { font-size: @h6-font-size; }
+    }
+  }
+}
+
+
+p {
+  font-family: @paragraph-font-family;
+  font-weight: @paragraph-font-weight;
+  font-size: @paragraph-font-size;
+  line-height: @paragraph-line-height;
+  margin: @paragraph-margin;
+  text-rendering: @paragraph-text-rendering;
+}
+
+em,
+i {
+  font-style: italic;
+  line-height: inherit;
+}
+
+strong,
+b {
+  font-weight: bold;
+  line-height: inherit;
+}
+
+small {
+  font-size: 0.8em;
+  line-height: inherit;
+}
+
+// Lists
+// -------------------------
+
+// Unordered and Ordered lists
+ul,
+ol {
+  line-height: @paragraph-line-height;
+  margin-top: 0;
+  margin-bottom: (@base-line-height-computed / 2);
+  padding-left: @base-line-height-computed;
+  ul,
+  ol {
+    margin-bottom: 0;
+  }
+}
+ul {
+  list-style-type: disc;
+}
+ol { list-style-type: decimal; }
+
+// List options
+
+// Unstyled keeps list items block level, just removes default browser padding and list-style
+ul, ol {
+  &.clean {
+    @include wipe-list;
+  }
+}
+
+// Description Lists
+dl {
+  margin-top: 0; // Remove browser default
+  margin-bottom: @base-line-height-computed;
+}
+dt,
+dd {
+  line-height: @paragraph-line-height;
+}
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-left: 0; // Undo browser default
+}

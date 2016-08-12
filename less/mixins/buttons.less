@@ -7,48 +7,37 @@
 ) {
   @error-message: "You have to supply at least two of the following: @font-size, @height, @padding.";
 
-  @line-height: false;
+  @rem-padding: rem(@padding);
+  @rem-height: rem(@height);
+  @rem-font-size: rem(@font-size);
+  @rem-padding: rem(@padding);
+  @rem-border: rem(@border);
 
-  @padding: rem(@padding);
-  @height: rem(@height);
-  @font-size: rem(@font-size);
-  @padding: rem(@padding);
-  @border: rem(@border);
+  & when (not (@rem-height = 0)) {
+    background: red !important;
+    & when (not (@rem-font-size = 0)) {
+      padding: 0 extract(@rem-padding, 2);
+    }
+    
+    & when (not (extract(@rem-padding, 1) = 0)) {
+      font-size: @rem-height - extract(@rem-padding, 1);
+    }
 
-  @if type-of(@padding) != "list" {
-    @padding: @padding @padding;
+    line-height: @rem-height - 2 * @rem-border;
+    height: @rem-height;
+  }
+  
+  & when ((@rem-height = 0) and not (@rem-font-size = 0) and not (extract(@rem-padding, 1) = 0)) {
+    height: @rem-font-size + extract(@rem-padding, 1) * 2;
+    line-height: @rem-font-size + extract(@rem-padding, 1) * 2;
+    padding: 0 extract(@rem-padding, 2)
   }
 
-  @if @height != 0 {
-    @if @font-size != 0 {
-      @padding: 0 nth(@padding, 2);
-    } @else if nth(@padding,1) != 0 {
-      @font-size: @height - nth(@padding, 1);
-    } @else {
-      @error @error-message;
-    }
-    @padding: 0 nth(@padding, 2);
-  } @else if @font-size != 0 {
-    @if nth(@padding, 1) != 0 {
-      @height: @font-size + nth(@padding, 1) * 2;
-      @padding: 0 nth(@padding, 2)
-    } @else {
-      @error @error-message;
-    }
-  } @else {
-    @error @error-message;
-  }
-
-  @line-height: @height - 2 * @border;
-
-  @if @full-width == true {
-    @padding: rem(nth(@padding, 1) 0);
+  & when (@full-width) {
+    padding: extract(@rem-padding, 1) 0;
     width: 100%;
   }
 
-  line-height: rem(@line-height);
-  height: rem(@height);
-  padding: rem(@padding);
   font-size: rem(@font-size);
 }
 

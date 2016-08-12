@@ -17,13 +17,13 @@
 		}
 
 		> .container {
-			@include clear;
-			background-color: $spytext-toolbar-background;
+			.clear();
+			background-color: @spytext-toolbar-background;
 			padding: 5px;
-			border: 1px solid $spytext-toolbar-border-color;
+			border: 1px solid @spytext-toolbar-border-color;
 			margin: 0 auto;
 			> ul {
-				@include clear;
+				.clear();
 				float: left;
 				display: block;
 				list-style-type:none;
@@ -32,7 +32,7 @@
 				margin-right:10px;
 
 				&.spytext-dropdown {
-					height: $spytext-button-height;
+					height: @spytext-button-height;
 					overflow: hidden;
 					position: relative;
 					&:hover {
@@ -41,11 +41,11 @@
 					&:not(:hover) {
 						&.pseudo:before {
 							display: block;
-							background: $spytext-button-background;
+							background: @spytext-button-background;
 							width: 100%;
 							text-align: center;
-							line-height: $spytext-button-height;
-							height: $spytext-button-height;
+							line-height: @spytext-button-height;
+							height: @spytext-button-height;
 						}
 						&.pseudo-list:before {
 							content: 'List';
@@ -60,20 +60,20 @@
 						}
 					}
 					> li {
-						border-bottom: 1px solid $spytext-dropdown-item-border-color;
+						border-bottom: 1px solid @spytext-dropdown-item-border-color;
 						> button {
-							@include wipe-button;
-							@include button-size($height: $spytext-button-height, $font-size: 1em, $padding: 40px);
-							background: $spytext-button-background;
+							.wipe-button();
+							.button-size(@height: @spytext-button-height, @font-size: 1em, @padding: 40px);
+							background: @spytext-button-background;
 							color: black;
 							&:hover {
 								cursor: pointer;
-								background: $spytext-button-hover-background;
+								background: @spytext-button-hover-background;
 							}
 						}
 						&.active {
 							> button {
-								background: $spytext-button-active-background;
+								background: @spytext-button-active-background;
 							}
 						}
 						&:last-child {
@@ -89,7 +89,7 @@
 					}
 
 					button.spytext-button {
-						@include wipe-button;
+						.wipe-button();
 						display: block;
 						vertical-align: baseline;
 						margin: 0;
@@ -102,7 +102,7 @@
 						text-decoration: none;
 						text-align: center;
 
-						background-color: $spytext-button-background;
+						background-color: @spytext-button-background;
 						color: #333333;
 
 						box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
@@ -122,7 +122,7 @@
 						}
 						&:not(:disabled):not(.active):hover{
 							cursor: pointer;
-							background-color: $spytext-button-hover-background; 
+							background-color: @spytext-button-hover-background; 
 						}
 						&:before {
 							content: "";
@@ -275,5 +275,5 @@
 		}
 	}
 
-	$tmp: register-module();
+	@tmp: register-module();
 }

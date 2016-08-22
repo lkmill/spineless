@@ -10,25 +10,30 @@
   @spacing: 0;
   @font-size: @base-font-size
 ) {
+  @padding-px: px(@padding);
   @height-px: px(@height);
   @font-size-px: px(@font-size);
   @border-px: px(@border);
 
-  //@if @height != false {
-  //  @height: px(@height);
+  & when (@height-px > 0) {
+    height: @height-px;
 
-  //  @padding: (@height - @font-size - @border * 2) / 2 nth(@padding, 2);
-  //} @else {
-  //  @padding: px(@padding);
+    //padding: 0 (@height-px - @font-size-px - @border-px * 2) / 2 extract(@padding-px, 2);
+    padding: (@height-px - @font-size-px - @border-px * 2) / 2 extract(@padding-px, 2);
+    //padding: 0 extract(@padding-px, 2);
+  }
+  
+  & when (@height-px = 0) {
+    padding: 0 extract(@padding-px, 2);
 
-  //  @height: nth(@padding, 1) * 2 + @border * 2 + @font-size;
-  //}
+    height: extract(@padding, 1) * 2 + @border * 2 + @font-size;
+  }
 
   display: block;
-  padding: rem(0 extract(@padding, 2));
+  //padding: rem(0 extract(@padding, 2));
   margin: rem(0 0 @spacing 0);
 
   font-size: rem(@font-size-px);
-  height: rem(@height-px);
+  //height: rem(@height-px);
   width: 100%;
 } 

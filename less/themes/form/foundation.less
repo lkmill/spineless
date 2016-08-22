@@ -126,7 +126,7 @@ textarea, [spytext-field], .spytext-field {
 select {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 9.9999996 5.0000003"><path d="M0 0h10L5 5 0 0z" fill="#aaa" fill-rule="evenodd"/></svg>') !important;
   background-color: @select-bg-color !important;
-  //background-position: if(@text-direction == 'rtl', 5px, calc(~"100% - 5px")) center !important;
+  background-position: calc(~"100% - 5px") center !important;
   background-repeat: no-repeat !important;
 
   transition: background 0.5s;

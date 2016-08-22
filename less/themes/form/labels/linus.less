@@ -32,7 +32,7 @@ form {
 		}
 
 		&.never-empty, &.filled {
-			@offset: 12px;
+			@offset: px(extract(@input-padding, 1)) + 10px;
 
 			input, select {
 				padding-left: rem(extract(@input-padding, 2));
@@ -43,7 +43,13 @@ form {
 				color: @input-font-color;
 			}
 
-			input, select:not([multiple]) {
+			select:not([multiple]) {
+				//padding-top: @offset;
+				padding-top: 10px;
+        padding-bottom: 0;
+			}
+
+			input {
 				padding-top: @offset;
 			}
 

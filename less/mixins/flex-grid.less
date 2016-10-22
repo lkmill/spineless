@@ -13,18 +13,18 @@
 }
 
 .simple-row(@gutter: @global-gutter) {
-	display: flex;
+  display: flex;
   flex-wrap: wrap;
   > .full {
     width: 100%;
   }
-	> .cell {
-		flex: 1 1 0px;
+  > .cell {
+    flex: 1 1 0px;
     margin-right: @gutter;
-		&:last-child {
+    &:last-child {
       margin-right: 0;
-		}
-	}
+    }
+  }
 }
 
 .row(@cells: false) {

@@ -1,117 +1,152 @@
+@import "mixins/flex-grid";
 @import "mixins/buttons";
 
+.row {
+  .simple-row();
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
 a {
-	color: $base-color;
-	text-decoration: none;
+  color: @base-color;
+  text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	&:first-child {
-		margin-top: 0;
-	}
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .message {
-	padding: 20px;
-	margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  > .container {
+    > .heading {
+      font-weight: bold;
+      color: inherit;
+      font-size: 1.2em;
+      margin: 0;
+      + p {
+        margin-top: 4px;
+      }
+    }
+    padding: 15px 5px;
+    border-radius: 5px;
+    font-size: rem(20);
+    text-align: center;
+    min-height: 36px;
+    background: lighten(@color-message, 47%);
+    color: @color-message;
+    border: 1px solid lighten(@color-message, 20%);
+    color: #777;
+    > p {
+      color: inherit;
+      margin: 0;
+    }
+  }
 
-	width: 100%;
-	border-radius: 5px;
-	background: lighten($color-message, 47%);
-	color: $color-message;
-	border: 1px solid lighten($color-message, 20%);
-	color: #777;
-	> h4 {
-		color: inherit;
-		font-size: 1.2em;
-		margin: 0;
-		+ p {
-			margin-top: 4px;
-		}
-	}
-	> p {
-		color: inherit;
-		margin: 0;
-	}
-	&.error {
-		background: lighten($color-error, 47%);
-		color: $color-error;
-		border-color: lighten($color-error, 20%);
-	}
-	&.success {
-		background: lighten($color-success, 47%);
-		color: $color-success;
-		border-color: lighten($color-success, 20%);
-	}
+  &.error {
+    > .container {
+      border: 1px solid lighten(@form-invalid-color, 20%);
+      background: lighten(@form-invalid-color, 50%);
+      color: @form-invalid-color;
+    }
+  }
+
+  &.success {
+    > .container {
+      background: lighten(@color-success, 47%);
+      color: @color-success;
+      border-color: lighten(@color-success, 20%);
+    }
+  }
+
+  &.animate {
+    transition: all 0.5s;
+  }
+
+  &.enter:not(.active), &.leave.active {
+    height: 0 !important;
+    margin-bottom: 0;
+  }
 }
 
+.button-color(@color, @saturate: true) {
+  @light-color: lighten(@color, 17%);
 
-@mixin button-color($color, $saturate: true) {
-	color: #fff;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
-	background-color: $color;
-	$light-color: lighten($color, 17%);
-	@if $saturate == true {
-		$light-color: saturate($light-color, 13%);
-	}
-	background-image: linear-gradient($light-color, $color);
-	border-color: darken($color, 7%);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+  background-color: @color;
+  background-image: linear-gradient(@light-color, @color);
+  & when (@saturate) {
+    background-image: linear-gradient(saturate(@light-color, 13%), @color);
+  }
+
+  border-color: darken(@color, 7%);
 }
 
-@mixin button-color-darken($color) {
-	color: #fff;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
-	background-color: $color;
-	//$dark-color: darken($color, 0%);
-	background-image: linear-gradient(lighten($color, 8%), darken($color, 5%));
-	border-color: darken($color, 12%);
+.button-color-darken(@color) {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+  background-color: @color;
+  //@dark-color: darken(@color, 0%);
+  background-image: linear-gradient(lighten(@color, 8%), darken(@color, 5%));
+  border-color: darken(@color, 12%);
 }
 
-$button-color-green: #60b044;
-$button-color-cyan: adjust-hue($button-color-green, 60deg);
-$button-color-purple: adjust-hue($button-color-green, 180deg);
-$button-color-yellow: saturate(adjust-hue($button-color-green, -60deg), 20%);
-$button-color-orange: lighten(saturate(adjust-hue($button-color-green, -80deg), 20%), 10%);
-$button-color-red: $color-red;
-//$button-color-red: saturate(lighten(adjust-hue($button-color-green, -100deg), 5%), 10%);
+@button-color-blue: desaturate(lighten(#0075a2, 20%), 45%);
+@button-color-green: #60b044;
+@button-color-cyan: adjust-hue(@button-color-green, 60deg);
+@button-color-purple: adjust-hue(@button-color-green, 180deg);
+@button-color-yellow: saturate(spin(@button-color-green, -60deg), 20%);
+@button-color-orange: lighten(saturate(spin(@button-color-green, -80deg), 20%), 10%);
+@button-color-red: @color-red;
+//@button-color-red: saturate(lighten(adjust-hue(@button-color-green, -100deg), 5%), 10%);
 
 button, .button {
-	@include wipe-button;
-	@include button-size($font-size: 13px, $padding: 12px 20px, $border: 1px);
-	display: inline-block;
-	font-weight: bold;
-	color: #333;
-	background-color: #eee;
-	background-image: linear-gradient(#fcfcfc, #eee);
-	border: 1px solid #d5d5d5;
-	border-radius: 3px;
+  .wipe-button;
+  .button-size(@font-size: 13px, @padding: 12px 20px, @border: 1px);
+  display: inline-block;
+  font-weight: bold;
+  color: #333;
+  background-color: #eee;
+  background-image: linear-gradient(#fcfcfc, #eee);
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
 
-	&.green {
-		@include button-color($color: $button-color-green);
-	}
+  &.green {
+    .button-color(@color: @button-color-green);
+  }
 
-	&.red {
-		@include button-color($color: $button-color-red);
-	}
+  &.red {
+    .button-color(@color: @button-color-red);
+  }
 
-	&.base, &.blue {
-		$color: desaturate(lighten($base-color, 20%), 45%);
-		@include button-color($color: $color);
-	}
+  &.blue {
+    .button-color(@color: @button-color-blue);
+  }
 
-	&.orange {
-		@include button-color($color: $button-color-orange);
-	}
+  &.base {
+    .button-color(@color: @base-color);
+  }
 
-	&:disabled {
-		@include button-color($color: #bbb, $saturate: false);
-		border-color: #ccc;
-	}
+  &.orange {
+    .button-color(@color: @button-color-orange);
+  }
+
+  &:disabled {
+    .button-color(@color: #bbb, @saturate: false);
+    border-color: #ccc;
+  }
 }
 
 div.controls {
-	display: flex;
-	flex: 0 0 auto;
+  display: flex;
+  flex: 0 0 auto;
 }
 
 button.icon, .controls > .button, .controls > button {
@@ -121,9 +156,9 @@ button.icon, .controls > .button, .controls > button {
   &:not(:disabled) {
     cursor: pointer;
   }
-  flex: 0 0 $input-height;
-  width: $input-height;
-  height: $input-height;
+  flex: 0 0 @input-height;
+  width: @input-height;
+  height: @input-height;
   padding: 0;
   text-indent: -9999px;
   position: relative;
@@ -217,152 +252,152 @@ button.icon, .controls > .button, .controls > button {
 }
 
 .collection.list {
-	.container:empty:before, &:empty:before {
-		content: 'No models found.';
-	}
+  .container:empty:before, &:empty:before {
+    content: 'No models found.';
+  }
 
-	.model {
-		position: relative;
-		background: #fff;
+  .model {
+    position: relative;
+    background: #fff;
 
-		$border-color: #dddfe3;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 15px;
-		border: 1px solid $border-color;
-		border-bottom: none;
-		&:last-child {
-			border-bottom: 1px solid $border-color;
-		}
+    @border-color: #dddfe3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid @border-color;
+    border-bottom: none;
+    &:last-child {
+      border-bottom: 1px solid @border-color;
+    }
 
-		> header {
-			flex: 1 1 100%;
-			h1 {
-				font-size: rem(16);
-				margin: 0;
-				padding: 0;
-				margin-right: 80px - $global-padding;
-				//white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				a {
-					//white-space: nowrap;
-					text-overflow: ellipsis;
-				}
-			}
+    > header {
+      flex: 1 1 100%;
+      h1 {
+        font-size: rem(16);
+        margin: 0;
+        padding: 0;
+        margin-right: 80px - @global-padding;
+        //white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        a {
+          //white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
 
-			ul {
-				@include wipe-list;
-				font-size: rem(12);
-				color: #666;
-				line-height: 1.2;
-			}
-		}
+      ul {
+        .wipe-list();
+        font-size: rem(12);
+        color: #666;
+        line-height: 1.2;
+      }
+    }
 
-		> .content {
-			display: none;
-		}
-	}
+    > .content {
+      display: none;
+    }
+  }
 }
 
 .pagination {
-	$transition-time: 0.2s;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: $global-padding;
-	margin-bottom: $global-padding;
-	.results {
-		.number {
-			font-size: 1.2em;
-			font-weight: bold;
-		}
-	}
+  @transition-time: 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: @global-padding;
+  margin-bottom: @global-padding;
+  .results {
+    .number {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
 
-	ul {
-		@include wipe-list;
-		@include clear;
-		> li {
-			display: block;
-			float: left;
-			top: 0;
-			height: 25px;
-			width: 25px;
-			&:not(:last-child) {
-				margin-right: 1px;
-			}
-			> a {
-				background: grey;
-				transition: top $transition-time, background $transition-time, padding $transition-time, height $transition-time;
-				display: block;
-				color: white;
-				text-align: center;
-				position: relative;
-				padding: 0;
-				top: 0;
-				height: 26px;
-				line-height: 26px;
-				text-decoration: none;
-				&:not(.nav) {
-					background: lighten(grey, 20%);
-				}
-			}
-			&.current, &:hover {
-				> a.nav {
-					height: 32px;
-					top: -3px;
-					padding-top: 3px;
-					//bottom: -3px;
-					font-weight: bold;
-				}
-			}
-			&.current {
-				> a.nav {
-					background: darken(grey, 20%);
-				}
-			}
-			&:hover:not(.current) {
-				> a.nav {
-					background: darken(grey, 10%);
-				}
-			}
-		}
-	}
+  ul {
+    .wipe-list();
+    .clear();
+    > li {
+      display: block;
+      float: left;
+      top: 0;
+      height: 25px;
+      width: 25px;
+      &:not(:last-child) {
+        margin-right: 1px;
+      }
+      > a {
+        background: grey;
+        transition: top @transition-time, background @transition-time, padding @transition-time, height @transition-time;
+        display: block;
+        color: white;
+        text-align: center;
+        position: relative;
+        padding: 0;
+        top: 0;
+        height: 26px;
+        line-height: 26px;
+        text-decoration: none;
+        &:not(.nav) {
+          background: lighten(grey, 20%);
+        }
+      }
+      &.current, &:hover {
+        > a.nav {
+          height: 32px;
+          top: -3px;
+          padding-top: 3px;
+          //bottom: -3px;
+          font-weight: bold;
+        }
+      }
+      &.current {
+        > a.nav {
+          background: darken(grey, 20%);
+        }
+      }
+      &:hover:not(.current) {
+        > a.nav {
+          background: darken(grey, 10%);
+        }
+      }
+    }
+  }
 }
 
 table {
-	$border-color-blue: #c1dce8;
-	$border-color: #dddfe3;
-	width: 100%;
-	&.collection {
-		td, th {
-			padding: 10px;
-		}
+  @border-color-blue: #c1dce8;
+  @border-color: #dddfe3;
+  width: 100%;
+  &.collection {
+    td, th {
+      padding: 10px;
+    }
 
-		thead {
-			border: 1px solid $border-color-blue;
-			background: #e6f1f6;
-		}
+    thead {
+      border: 1px solid @border-color-blue;
+      background: #e6f1f6;
+    }
 
-		tbody {
-			> tr {
-				border: 1px solid $border-color-blue;
-				border-top: none;
-				border-bottom-color: $border-color;
-				&:last-child {
-					border-bottom-color: $border-color-blue;
-				}
+    tbody {
+      > tr {
+        border: 1px solid @border-color-blue;
+        border-top: none;
+        border-bottom-color: @border-color;
+        &:last-child {
+          border-bottom-color: @border-color-blue;
+        }
 
-				&:nth-child(2n) {
-					background: #eee;
-				}
-			}
-		}
-		th {
-			color: darken($base-color, 10%);
-			font-weight: bold;
-			text-align: center;
-		}
-	}
+        &:nth-child(2n) {
+          background: #eee;
+        }
+      }
+    }
+    th {
+      color: darken(@base-color, 10%);
+      font-weight: bold;
+      text-align: center;
+    }
+  }
 }

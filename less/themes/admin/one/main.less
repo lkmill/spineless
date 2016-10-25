@@ -1,8 +1,6 @@
-@import 'variables-spysass';
-@import 'variables';
+@import 'mixins/flex-grid';
 
 @import 'components/reset';
-@import 'components/flex-grid';
 @import 'components/type';
 
 @import 'themes/form/foundation';
@@ -16,3 +14,12 @@
 @import 'styles';
 @import 'content';
 
+@import 'variables-less';
+@import 'variables';
+
+body > div.container > div.left > div.logo {
+  width: 70%;
+  .ratio(676/138);
+  background: img-url('logo-676x138.png') center center / 100% auto no-repeat;
+  margin: 30px auto;
+}

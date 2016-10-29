@@ -1,7 +1,7 @@
 @content-max-width: 1000px;
 @global-gutter: 30px;
 
-.container(@max-width: @content-max-width, @gutter: 0px) {
+.container(@max-width: @content-max-width, @gutter: @global-gutter) {
   width: calc(~"100% - @{gutter}");
   max-width: @max-width;
   margin: 0 auto;

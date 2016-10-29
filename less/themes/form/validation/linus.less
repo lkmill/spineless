@@ -2,12 +2,13 @@
 @form-invalid-color: red;
 @form-valid-icon: 'form-valid.svg';
 @form-invalid-icon: 'form-invalid.svg';
+@form-icon-width: 20px;
+@form-icon-height: @form-icon-width;
 
 @import "mixins/graphics";
 
 form {
 	@color: @base-color;
-	@icon-width: 20px;
 
 	div.field-container {
 		&.hide-errors {
@@ -25,18 +26,18 @@ form {
 				content: '';
 				display: block;
 				float: right;
-				width: @icon-width;
-				height: @icon-width;
+				width: @form-icon-width;
+				height: @form-icon-height;
 			}
 		}
 		textarea {
-			padding-right: @icon-width + extract(@input-padding, 2);
+			padding-right: @form-icon-width + extract(@input-padding, 2);
 			&:before {
 				content: '';
 				display: block;
 				float: right;
-				width: @icon-width;
-				height: @icon-width;
+				width: @form-icon-width;
+				height: @form-icon-width;
 			}
 		}
 		&.valid {
@@ -144,7 +145,7 @@ form {
 			position: absolute;
 			top: 0;
 			right: extract(@input-padding, 2);
-			width: @icon-width;
+			width: @form-icon-width;
 			height: @input-height;
 			perspective: 1000px;
 			&:before, &:after {
@@ -157,7 +158,7 @@ form {
 				left: 0;
 				width: 100%;
 				height: 100%;
-				background-size: 18px auto;
+				background-size: @form-icon-width @form-icon-height;
 				background-repeat: no-repeat;
 				background-position: center center;
 			}

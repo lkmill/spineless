@@ -1,6 +1,6 @@
 form {
 	button {
-		@include button-size($font-size: 13px, $height: $input-height, $padding: 12px 20px, $border: 1px);
+		// @include button-size($font-size: 13px, $height: $input-height, $padding: 12px 20px, $border: 1px);
 	}
 
 	fieldset {
@@ -28,7 +28,7 @@ form {
 		max-height: 200px;
 	}
 	ul {
-		@include wipe-list;
+		.wipe-list();
 		list-style: none;
 		line-height: 1.3;
 		font-size: rem(12);

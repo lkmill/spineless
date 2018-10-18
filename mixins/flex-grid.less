@@ -29,17 +29,15 @@
   }
 }
 
-.simple-row(@gutter: @global-gutter) {
+.simple-row() {
   display: flex;
   flex-wrap: wrap;
-  > .full {
-    width: 100%;
-  }
-  > .cell {
-    flex: 1 1 0px;
-    margin-right: @gutter;
-    &:last-child {
-      margin-right: 0;
-    }
+}
+
+.simple-cell(@gutter: @global-gutter) {
+  flex: 1 1 0px;
+  margin-right: @gutter;
+  &:last-child {
+    margin-right: 0;
   }
 }

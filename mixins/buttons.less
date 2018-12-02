@@ -7,6 +7,39 @@
   @full-width: false,
   @border: 0
 ) {
+  @error-message: "You have to supply at least two of the following: @font-size, @height, @padding.";
+
+  @rem-padding: rem(@padding);
+  @rem-height: rem(@height);
+  @rem-font-size: rem(@font-size);
+  @rem-padding: rem(@padding);
+  @rem-border: rem(@border);
+
+  & when (not (@rem-height = 0)) {
+    & when (not (@rem-font-size = 0)) {
+      padding: 0 extract(@rem-padding, 2);
+    }
+
+    & when (not (extract(@rem-padding, 1) = 0)) {
+      font-size: @rem-height - extract(@rem-padding, 1);
+    }
+
+    line-height: @rem-height - 2 * @rem-border;
+    height: @rem-height;
+  }
+
+  & when ((@rem-height = 0) and not (@rem-font-size = 0) and not (extract(@rem-padding, 1) = 0)) {
+    height: @rem-font-size + extract(@rem-padding, 1) * 2;
+    line-height: @rem-font-size + extract(@rem-padding, 1) * 2;
+    padding: 0 extract(@rem-padding, 2)
+  }
+
+  & when (@full-width) {
+    padding: extract(@rem-padding, 1) 0;
+    width: 100%;
+  }
+
+  font-size: rem(@font-size);
 }
 
 .button-style-thoughtbot() {

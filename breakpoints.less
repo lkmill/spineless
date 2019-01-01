@@ -1,5 +1,8 @@
 // Need to be in pixels for IE8
-@small-min: 0px;
+@xsmall-min: 0px;
+@xsmall-max: 374px;
+@xsmall-range: @xsmall-min, @xsmall-max;
+@small-min: 375px;
 @small-max: 639px;
 @small-range: @small-min, @small-max;
 @medium-min: 640px;
@@ -20,9 +23,10 @@
 //
 
 @screen: ~"only screen";
+@xsmall-only: ~"@{screen} and (max-width: @{xsmall-max})";
 @small-only: ~"@{screen} and (min-width: @{small-min}) and (max-width: @{small-max})";
-@small-up: ~"only screen";
-@small-up: ~"@{screen} and (min-width: @{small-range})";
+@small-down: ~"@{screen} and (max-width: @{small-max})";
+@small-up: ~"@{screen} and (min-width: @{small-min})";
 @medium-only: ~"@{screen} and (min-width: @{medium-min}) and (max-width: @{medium-max})";
 @medium-up: ~"@{screen} and (min-width: @{medium-min})";
 @medium-down: ~"@{screen} and (max-width: @{medium-max})";

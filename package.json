@@ -1,6 +1,6 @@
 {
   "name": "spineless",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "LESS stuff.",
   "main": "index.js",
   "scripts": {
